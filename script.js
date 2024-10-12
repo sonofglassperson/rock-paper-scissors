@@ -64,7 +64,7 @@ function getHumanChoice() {
 // console.log(computerScore);
 
 function playRound(humanChoice, computerChoice) {
-    console.log('ROUND:',++roundCount+'\n');
+    console.log('\nROUND:',++roundCount+'\n');
     
     console.log('Your choice was: ' +humanChoice);
     console.log('& the computers choice was: ' +computerChoice+'\n\n');
@@ -113,17 +113,24 @@ function playRound(humanChoice, computerChoice) {
     console.log('\nScore so far is >>>');
     console.log('\tComputer score:', computerScore);
     console.log('\tHuman score:', humanScore);
-    
 }
 
-let humanChoice = getHumanChoice()
-let computerChoice = getComputerChoice()
 
-if (humanChoice != null) {
-    playRound(humanChoice, computerChoice);
-} else {
-    console.log('No choice selected!');
+
+for (let index = 0; index < 5; index++) {
+    let humanChoice = getHumanChoice()
+    let computerChoice = getComputerChoice()
+
+    if (humanChoice != null) {
+        playRound(humanChoice, computerChoice);
+    } else {
+        console.log('No choice selected!\n\n');
+    }  
 }
+console.log('---------------------------------');
+console.log('\nFINAL SCORE IS >>>');
+console.log('\tComputer score:', computerScore);
+console.log('\tHuman score:', humanScore);
 
 
 //console.log(getHumanChoice())
