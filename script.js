@@ -1,6 +1,3 @@
-//console.log('Testing');
-
-
 let humanScore= 0
 let computerScore = 0
 let roundCount = 0
@@ -34,7 +31,7 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let humanChoice = "";
-    let gameOptions = ['rock', 'paper', 'scissors', '1', '2', '3'];
+    const gameOptions = ['rock', 'paper', 'scissors', '1', '2', '3'];
     
     // read while like if
     // if the condition is true, run code till it is false
@@ -57,58 +54,54 @@ function getHumanChoice() {
     return null;
 }
 
-
-// Test code here:
-// humanScore++
-// console.log(humanScore);
-// console.log(computerScore);
-
 function playRound(humanChoice, computerChoice) {
-    console.log('\nROUND:',++roundCount+'\n');
-    
+    if (++roundCount > 1) {
+        console.log('\n');  
+    }
+
+    console.log('ROUND:',roundCount+'\n');
     console.log('Your choice was: ' +humanChoice);
     console.log('& the computers choice was: ' +computerChoice+'\n\n');
+
+    let result = '';
     
     switch (humanChoice) {
-        // rock beats scissors1
-        // paper beats rock
-        // rock && rock
         case 'rock':
             if (computerChoice == 'scissors') {
-                console.log("You win! Rock beats scissors");
+                result = "You win! Rock beats scissors";
                 ++humanScore;
             } else if (computerChoice == 'paper') {
-                console.log("You lose! Paper beats Rock");
+                result = "You lose! Paper beats Rock";
                 ++computerScore;
             } else {
-                console.log("Its a draw!");
+                result = "Its a draw!";
             }
             break;
         case 'paper':
             if (computerChoice == 'scissors') {
-                console.log("You lose! Scissors beats paper");
+                result = "You lose! Scissors beats paper";
                 ++computerScore;
             } else if (computerChoice == 'rock') {
-                console.log("You win! Paper beats rock");
+                result = "You win! Paper beats rock";
                 ++humanScore;
             } else {
-                console.log("Its a draw!");
+                result = "Its a draw!";
             }
             break
         case 'scissors':
             if (computerChoice == 'rock') {
-                console.log("You lose! Rock beats scissors");
+                result = "You lose! Rock beats scissors";
                 ++computerScore;
             } else if (computerChoice == 'paper') {
-                console.log("You win! Scissors beats paper");
+                result = "You win! Scissors beats paper";
                 ++humanScore;
             } else {
-                console.log("Its a draw!");
+                result = "Its a draw!";
             }
             break
     }
 
-    //console.log(result);
+    console.log(result);
 
     console.log('\nScore so far is >>>');
     console.log('\tComputer score:', computerScore);
@@ -124,15 +117,11 @@ for (let index = 0; index < 5; index++) {
     if (humanChoice != null) {
         playRound(humanChoice, computerChoice);
     } else {
-        console.log('No choice selected!\n\n');
+        console.log('Game cancelled!\n\n');
+        index = 5;
     }  
 }
 console.log('---------------------------------');
 console.log('\nFINAL SCORE IS >>>');
 console.log('\tComputer score:', computerScore);
 console.log('\tHuman score:', humanScore);
-
-
-//console.log(getHumanChoice())
-
-//getHumanChoice()
