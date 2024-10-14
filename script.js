@@ -35,7 +35,7 @@ function getHumanChoice() {
     
     // read while like if
     // if the condition is true, run code till it is false
-    while (humanChoice === "") { // 
+    while (humanChoice === "") {
         humanChoice = prompt('rock (1), paper (2) or scissors (3)?')
         if (humanChoice === "" || (humanChoice != null 
                 && ! gameOptions.includes(humanChoice.toLowerCase()))
@@ -106,22 +106,54 @@ function playRound(humanChoice, computerChoice) {
     console.log('\nScore so far is >>>');
     console.log('\tComputer score:', computerScore);
     console.log('\tHuman score:', humanScore);
+
+    alert
+    (`ROUND: ${roundCount}
+        Your choice was: ${humanChoice}
+        & the computers choice was: ${computerChoice}
+
+        ** ${result} **
+
+        Score so far is >>>
+            \tComputer score: ${computerScore}
+            \tHuman score: ${humanScore}`
+    )
 }
 
+let button = document.querySelector("button");
+button.addEventListener('click', playRPS);
 
+function playRPS() {
+    for (let index = 0; index < 5; index++) {
+        let humanChoice = getHumanChoice()
+        let computerChoice = getComputerChoice()
+    
+        if (humanChoice != null) {
+            playRound(humanChoice, computerChoice);
+        } else {
+            console.log('Game cancelled!\n\n');
+            index = 5;
+        }  
+    }
+    console.log('---------------------------------');
+    console.log('\nFINAL SCORE IS >>>');
+    console.log('\tComputer score:', computerScore);
+    console.log('\tHuman score:', humanScore);
 
-for (let index = 0; index < 5; index++) {
-    let humanChoice = getHumanChoice()
-    let computerChoice = getComputerChoice()
-
-    if (humanChoice != null) {
-        playRound(humanChoice, computerChoice);
-    } else {
-        console.log('Game cancelled!\n\n');
-        index = 5;
-    }  
+    alert
+    (
+        `
+        ---------------------------------
+        FINAL SCORE IS >>>
+            \tComputer score: ${computerScore}
+            \tHuman score: ${humanScore}
+        `
+    )
+    reset();
 }
-console.log('---------------------------------');
-console.log('\nFINAL SCORE IS >>>');
-console.log('\tComputer score:', computerScore);
-console.log('\tHuman score:', humanScore);
+
+function reset() {
+    humanScore= 0
+    computerScore = 0
+    roundCount = 0
+}
