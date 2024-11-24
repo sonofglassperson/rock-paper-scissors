@@ -1,15 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <script src="./script.js" defer></script>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
 </head>
+
 <body>
-    <h1>
-        Rock, paper, scissors.
-    </h1>
-    <button id="startGame" type="button">Start Game</button>
-    <script src="./script.js"></script>
+    <div class="container">
+
+        <h1>
+            Rock, paper, scissors!
+        </h1>
+        <div class="rounds">
+            <h2 style="display: block;">How many rounds do you want to play?</h2>
+            <div class="roundsInput">
+                <label for="rounds">Rounds:</label>
+                <input id="rounds" type="text" name="" id="">
+                <button id="startGame" type="button">Start Game</button>
+            </div>
+
+        </div>
+
+        <div class="buttonsContainer">
+            <div class="buttons">
+                <div class="playerButtons">
+                    <button id="rock">
+                        Rock
+                    </button>
+                    <button id="paper">
+                        Paper
+                    </button>
+                    <button id="scissors">
+                        Scissors
+                    </button>
+                </div>
+
+                <div class="computerButtons">
+                    <button id="rock">
+                        Rock
+                    </button>
+                    <button id="paper">
+                        Paper
+                    </button>
+                    <button id="scissors">
+                        Scissors
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="resultsContainer">
+
+            </div>
+        </div>
+
+
+
+    </div>
+
 </body>
+
 </html>

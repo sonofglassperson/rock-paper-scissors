@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.playerButtons > button, .computerButtons > button{
+    width: 100px;
+    height: 100px;
+    padding: 1rem 1rem;
+    border-radius: 20px;
+}
+
+.playerButtons, .computerButtons {
+    border: red 2px solid;
+    border-radius: 20px;
+    padding: 0.8rem;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rounds {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonsContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons {
+    margin-top:1rem;
+    display: flex;
+    gap: 3rem;
+}
+
+.resultsDivLeftPanel {
+    border: red 2px solid;
+    border-radius: 20px;
+    padding: 0.8rem;
+    flex: 2;
+}
+
+.resultsDivRightPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+}
+
+.resultsContainer{
+    margin-top: 1rem;
+    
+}
+
+.results {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    /* border: black 1px solid; */
+}
+
+.results > button {
+    height: 22px;
+    align-self: center;
+}

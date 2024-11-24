@@ -1,4 +1,4 @@
-let humanScore= 0
+let humanScore = 0
 let computerScore = 0
 let roundCount = 0
 
@@ -32,22 +32,22 @@ function getComputerChoice() {
 function getHumanChoice() {
     let humanChoice = "";
     const gameOptions = ['rock', 'paper', 'scissors', '1', '2', '3'];
-    
+
     // read while like if
     // if the condition is true, run code till it is false
     while (humanChoice === "") {
         humanChoice = prompt('rock (1), paper (2) or scissors (3)?')
-        if (humanChoice === "" || (humanChoice != null 
-                && ! gameOptions.includes(humanChoice.toLowerCase()))
+        if (humanChoice === "" || (humanChoice != null
+            && !gameOptions.includes(humanChoice.toLowerCase()))
         ) {
             alert("please insert a valid choice!"); // Alert if input is empty
             humanChoice = "";
         } else {
             // humanChoice isn't null & humanChoice isn't a Number
-            if (humanChoice != null && ! Number.isInteger(+humanChoice)) {
+            if (humanChoice != null && !Number.isInteger(+humanChoice)) {
                 return humanChoice.toLowerCase()
             } else if (humanChoice != null) {
-                return getChoice(+humanChoice); 
+                return getChoice(+humanChoice);
             }
         }
     }
@@ -56,15 +56,15 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
     if (++roundCount > 1) {
-        console.log('\n');  
+        console.log('\n');
     }
 
-    console.log('ROUND:',roundCount+'\n');
-    console.log('Your choice was: ' +humanChoice);
-    console.log('& the computers choice was: ' +computerChoice+'\n\n');
+    console.log('ROUND:', roundCount + '\n');
+    console.log('Your choice was: ' + humanChoice);
+    console.log('& the computers choice was: ' + computerChoice + '\n\n');
 
     let result = '';
-    
+
     switch (humanChoice) {
         case 'rock':
             if (computerChoice == 'scissors') {
@@ -108,7 +108,7 @@ function playRound(humanChoice, computerChoice) {
     console.log('\tHuman score:', humanScore);
 
     alert
-    (`ROUND: ${roundCount}
+        (`ROUND: ${roundCount}
         Your choice was: ${humanChoice}
         & the computers choice was: ${computerChoice}
 
@@ -117,7 +117,7 @@ function playRound(humanChoice, computerChoice) {
         Score so far is >>>
             \tComputer score: ${computerScore}
             \tHuman score: ${humanScore}`
-    )
+        )
 }
 
 let button = document.querySelector("button");
@@ -127,13 +127,13 @@ function playRPS() {
     for (let index = 0; index < 5; index++) {
         let humanChoice = getHumanChoice()
         let computerChoice = getComputerChoice()
-    
+
         if (humanChoice != null) {
             playRound(humanChoice, computerChoice);
         } else {
             console.log('Game cancelled!\n\n');
             index = 5;
-        }  
+        }
     }
     console.log('---------------------------------');
     console.log('\nFINAL SCORE IS >>>');
@@ -141,19 +141,102 @@ function playRPS() {
     console.log('\tHuman score:', humanScore);
 
     alert
-    (
-        `
+        (
+            `
         ---------------------------------
         FINAL SCORE IS >>>
             \tComputer score: ${computerScore}
             \tHuman score: ${humanScore}
         `
-    )
+        )
     reset();
 }
 
 function reset() {
-    humanScore= 0
+    humanScore = 0
     computerScore = 0
     roundCount = 0
 }
+
+const buttons = document.querySelector('.playerButtons');
+const rpsButtons = document.querySelectorAll('.playerButtons > button');
+
+const resultsContainer = document.querySelector('.resultsContainer')
+const buttonsContainer = document.querySelector('.buttonsContainer')
+let isNextRound = false;
+
+function disableRpsButtons(toggle) {
+    rpsButtons.forEach(element => {
+        element.disabled = toggle;
+    });
+}
+
+
+buttons.addEventListener('click', (e) => {
+    const target = e.target;
+    //console.log(target.innerText);
+
+    let testEvent = new CustomEvent('rpsChosen', {
+        detail: {
+            'playerChoice': target.innerText
+        }
+    })
+
+    resultsContainer.dispatchEvent(testEvent);
+});
+
+resultsContainer.addEventListener('rpsChosen', (e) => {
+    let round = `ROUND: ${++roundCount}`;
+    let resultsDiv = document.createElement('div');
+    let resultsDivLeftPanel = document.createElement('div');
+    let resultsDivRightPanel = document.createElement('div');
+
+    resultsDivLeftPanel.setAttribute('class', 'resultsDivLeftPanel');
+    resultsDivRightPanel.setAttribute('class', 'resultsDivRightPanel');
+    resultsDiv.setAttribute('id', `r_${roundCount}`);
+
+    resultsDiv.setAttribute('class', 'results');
+
+    let playerpara = document.createElement('p');
+    let roundPara = document.createElement('p');
+    roundPara.setAttribute('style', 'display:block;')
+
+    let nextRoundButton = document.createElement('button');
+    nextRoundButton.textContent = 'Next Round';
+
+    let cancelGameButton = document.createElement('button');
+    cancelGameButton.textContent = 'Cancel Game';
+
+    roundPara.innerText = round;
+
+    playerpara.innerText = `player choice is: ${e.detail.playerChoice}`;
+    resultsDivLeftPanel.append(playerpara);
+    resultsDivRightPanel.append(nextRoundButton, cancelGameButton);
+
+    resultsDiv.append(resultsDivLeftPanel, resultsDivRightPanel);
+
+    resultsContainer.append(roundPara, resultsDiv);
+    disableRpsButtons(true);
+    createEventListnerForRightPanelButtons(resultsDivRightPanel)
+
+    if (roundCount > 1 && isNextRound) {
+        let r = document.getElementById(`r_${roundCount - 1}`);
+        r.removeChild(r.lastChild);
+    }
+
+});
+
+function createEventListnerForRightPanelButtons(RightPanel) {
+    RightPanel.addEventListener('click', (e) => {
+        let target = e.target;
+        if (target.innerText == 'Next Round') {
+            isNextRound = true;
+            disableRpsButtons(false);
+            target.style.display = 'none';
+        } else {
+            //alert('ARE YOU SURE YOU WANT TO CANCEL?')
+            window.location.reload(true);
+        }
+    })
+}
+
