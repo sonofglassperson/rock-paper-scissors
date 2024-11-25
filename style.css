@@ -12,16 +12,62 @@
 }
 
 .playerButtons, .computerButtons {
-    border: red 2px solid;
+    /* border: red 2px solid; */
     border-radius: 20px;
     padding: 0.8rem;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+
+.container > h1 {
+    /* border: 2px solid orange; */
+    width: 10vw;
+}
+
+.gameAndScore {
+    /* border: 2px solid blue; */
+    display: flex;
+    width: 60vw;
+}
+
+.score {
+    /* border: 2px solid orange; */
+    width: 10vw;
+}
+
 .container {
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    width: 80vw;
+    /* border: 2px solid green; */
+    margin: 0 auto;
 }
+
+
+.resultsContainerParent {
+    width: 80vw;
+    /* border: 2px dotted green; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.resultsContainer{
+    margin-top: 1rem;
+    width: 60vw;
+}
+
+.buttonsContainer{
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid yellow; */
+    width:max-content;
+}
+
+
 
 .rounds {
     margin-top: 1rem;
@@ -30,10 +76,6 @@
     align-items: center;
 }
 
-.buttonsContainer{
-    display: flex;
-    flex-direction: column;
-}
 
 .buttons {
     margin-top:1rem;
@@ -55,10 +97,6 @@
     justify-content: center;
 }
 
-.resultsContainer{
-    margin-top: 1rem;
-    
-}
 
 .results {
     display: flex;

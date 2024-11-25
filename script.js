@@ -165,6 +165,23 @@ const resultsContainer = document.querySelector('.resultsContainer')
 const buttonsContainer = document.querySelector('.buttonsContainer')
 let isNextRound = false;
 
+
+
+
+// Get computed style for the source element
+// var computedStyle = window.getComputedStyle(buttonsContainer);
+
+// // Retrieve the width
+// var width = computedStyle.width;
+// console.log(width);
+
+
+// Set the width to the target element
+// var targetElement = document.getElementById('targetElement');
+// resultsContainer.style.width = width;
+
+
+
 function disableRpsButtons(toggle) {
     rpsButtons.forEach(element => {
         element.disabled = toggle;
@@ -178,44 +195,61 @@ buttons.addEventListener('click', (e) => {
 
     let testEvent = new CustomEvent('rpsChosen', {
         detail: {
-            'playerChoice': target.innerText
+            'playerChoice': target.innerText,
+            'computerChoice': getComputerChoice()
         }
     })
 
     resultsContainer.dispatchEvent(testEvent);
 });
 
+function createElements() {
+    // const createDiv = document.createElement('div');
+
+    return {
+        "resultsDiv": document.createElement('div'),
+        "resultsDivLeftPanel": document.createElement('div'),
+        "resultsDivRightPanel": document.createElement('div'),
+        "playerPara": document.createElement('p'),
+        "comupterPara": document.createElement('p'),
+        "roundPara": document.createElement('p'),
+        "nextRoundButton": document.createElement('button'),
+        "cancelGameButton": document.createElement('button'),
+    }
+}
+
 resultsContainer.addEventListener('rpsChosen', (e) => {
     let round = `ROUND: ${++roundCount}`;
-    let resultsDiv = document.createElement('div');
-    let resultsDivLeftPanel = document.createElement('div');
-    let resultsDivRightPanel = document.createElement('div');
+    const element = createElements();
+
+    console.log(element.resultsDivLeftPanel);
+
+    const resultsDivLeftPanel = element.resultsDivLeftPanel;
+    const resultsDivRightPanel = element.resultsDivRightPanel;
+    const resultsDiv = element.resultsDiv;
+    const roundPara = element.roundPara;
+    const nextRoundButton = element.nextRoundButton;
+    const cancelGameButton = element.cancelGameButton;
+    const playerPara = element.playerPara;
+    const comupterPara = element.comupterPara;
 
     resultsDivLeftPanel.setAttribute('class', 'resultsDivLeftPanel');
     resultsDivRightPanel.setAttribute('class', 'resultsDivRightPanel');
     resultsDiv.setAttribute('id', `r_${roundCount}`);
-
     resultsDiv.setAttribute('class', 'results');
-
-    let playerpara = document.createElement('p');
-    let roundPara = document.createElement('p');
     roundPara.setAttribute('style', 'display:block;')
 
-    let nextRoundButton = document.createElement('button');
     nextRoundButton.textContent = 'Next Round';
-
-    let cancelGameButton = document.createElement('button');
     cancelGameButton.textContent = 'Cancel Game';
-
     roundPara.innerText = round;
+    playerPara.innerText = `Player selected: ${e.detail.playerChoice}`;
+    comupterPara.innerText = `Computer selected: ${e.detail.computerChoice}`;
 
-    playerpara.innerText = `player choice is: ${e.detail.playerChoice}`;
-    resultsDivLeftPanel.append(playerpara);
+    resultsDivLeftPanel.append(playerPara, comupterPara);
     resultsDivRightPanel.append(nextRoundButton, cancelGameButton);
-
     resultsDiv.append(resultsDivLeftPanel, resultsDivRightPanel);
-
     resultsContainer.append(roundPara, resultsDiv);
+
     disableRpsButtons(true);
     createEventListnerForRightPanelButtons(resultsDivRightPanel)
 
@@ -223,7 +257,6 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
         let r = document.getElementById(`r_${roundCount - 1}`);
         r.removeChild(r.lastChild);
     }
-
 });
 
 function createEventListnerForRightPanelButtons(RightPanel) {

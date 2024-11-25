@@ -10,57 +10,70 @@
 </head>
 
 <body>
-    <div class="container">
 
+    <div class="container">
         <h1>
             Rock, paper, scissors!
         </h1>
-        <div class="rounds">
-            <h2 style="display: block;">How many rounds do you want to play?</h2>
-            <div class="roundsInput">
-                <label for="rounds">Rounds:</label>
-                <input id="rounds" type="text" name="" id="">
-                <button id="startGame" type="button">Start Game</button>
+
+        <div class="gameAndScore">
+
+            <div class="buttonsContainer">
+
+                <div class="rounds">
+                    <h2 style="display: block;">How many rounds do you want to play?</h2>
+                    <div class="roundsInput">
+                        <label for="rounds">Rounds:</label>
+                        <input id="rounds" type="text" name="" id="">
+                        <button id="startGame" type="button">Start Game</button>
+                    </div>
+
+                </div>
+
+                <div class="buttons">
+                    <div class="playerButtons">
+                        <button id="rock">
+                            Rock
+                        </button>
+                        <button id="paper">
+                            Paper
+                        </button>
+                        <button id="scissors">
+                            Scissors
+                        </button>
+                    </div>
+
+                    <div class="computerButtons">
+                        <button id="rock">
+                            Rock
+                        </button>
+                        <button id="paper">
+                            Paper
+                        </button>
+                        <button id="scissors">
+                            Scissors
+                        </button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
 
-        <div class="buttonsContainer">
-            <div class="buttons">
-                <div class="playerButtons">
-                    <button id="rock">
-                        Rock
-                    </button>
-                    <button id="paper">
-                        Paper
-                    </button>
-                    <button id="scissors">
-                        Scissors
-                    </button>
-                </div>
-
-                <div class="computerButtons">
-                    <button id="rock">
-                        Rock
-                    </button>
-                    <button id="paper">
-                        Paper
-                    </button>
-                    <button id="scissors">
-                        Scissors
-                    </button>
-                </div>
-            </div>
-
-
-            <div class="resultsContainer">
-
-            </div>
+        <div class="score">
+            Score
+            <p>Player:</p>
+            <p>Computer:</p>
         </div>
-
-
 
     </div>
+
+    <div class="resultsContainerParent">
+        <div class="resultsContainer">
+
+        </div>
+    </div>
+
 
 </body>
 
