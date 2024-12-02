@@ -12,9 +12,13 @@
 <body>
 
     <div class="container">
-        <h1>
-            Rock, paper, scissors!
-        </h1>
+        <div class="title">
+            <p>
+                Rock,
+            </p>
+            <p>Paper,</p>
+            <p>Scissors!</p>
+        </div>
 
         <div class="gameAndScore">
 
@@ -24,14 +28,14 @@
                     <h2 style="display: block;">How many rounds do you want to play?</h2>
                     <div class="roundsInput">
                         <label for="rounds">Rounds:</label>
-                        <input id="rounds" type="text" name="" id="">
+                        <input type="text" name="" id="roundsInput" value="">
                         <button id="startGame" type="button">Start Game</button>
                     </div>
-
                 </div>
 
                 <div class="buttons">
                     <div class="playerButtons">
+                        <p>Player</p>
                         <button id="rock">
                             Rock
                         </button>
@@ -41,9 +45,12 @@
                         <button id="scissors">
                             Scissors
                         </button>
+                        <p id="subText">**Please select one of the options above.</p>
                     </div>
 
                     <div class="computerButtons">
+                        <p>Computer</p>
+                        </p>
                         <button id="rock">
                             Rock
                         </button>
@@ -54,6 +61,10 @@
                             Scissors
                         </button>
                     </div>
+                </div>
+
+                <div class="resultsContainer">
+
                 </div>
 
             </div>
@@ -62,17 +73,18 @@
 
         <div class="score">
             Score
-            <p>Player:</p>
-            <p>Computer:</p>
+            <p>Player: <span id="playerScore">0</span></p>
+            <p>Computer: <span id="computerScore">0</span></p>
+
+            <div class="gameOver">
+                <p>Game Over!!!</p>
+                <p id="gameOverResult"></p>
+            </div>
         </div>
 
     </div>
 
-    <div class="resultsContainerParent">
-        <div class="resultsContainer">
 
-        </div>
-    </div>
 
 
 </body>

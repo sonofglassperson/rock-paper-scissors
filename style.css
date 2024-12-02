@@ -4,67 +4,100 @@
     box-sizing: border-box;
 }
 
-.playerButtons > button, .computerButtons > button{
-    width: 100px;
-    height: 100px;
-    padding: 1rem 1rem;
-    border-radius: 20px;
-}
-
-.playerButtons, .computerButtons {
-    /* border: red 2px solid; */
-    border-radius: 20px;
-    padding: 0.8rem;
-}
-
 body {
     display: flex;
     flex-direction: column;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
-.container > h1 {
-    /* border: 2px solid orange; */
+
+.playerButtons > button, .computerButtons > button{
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.playerButtons, .computerButtons {
+    border-radius: 20px;
+}
+
+.buttons {
+    margin-top:1rem;
+    display: flex;
+    padding: 0.8rem;
+    gap: 3rem;
+    border: 2px dotted black;
+    flex-wrap: wrap;
+}
+
+.title{
+    border: 2px solid orange;
+    word-break:break-all;
+    font-size: 2rem;
+    font-weight: 400;
     width: 10vw;
+    max-width: 200px;
+    min-width: 100px;
+    line-height: 3rem;
 }
 
 .gameAndScore {
-    /* border: 2px solid blue; */
-    display: flex;
-    width: 60vw;
+    border: 2px solid blue;
+    /* display: flex; */
 }
 
 .score {
-    /* border: 2px solid orange; */
+    border: 2px solid orange;
     width: 10vw;
+    max-width: 200px;
+    min-width: 100px;
+    min-width: 100px;flex-grow: 0;
 }
 
 .container {
     display: flex;
+    justify-content: center;
     width: 80vw;
-    /* border: 2px solid green; */
+    /* width: 80%; */
+    border: 2px dotted black;
     margin: 0 auto;
 }
 
+.toggleButtonBorder {
+    border: 3.5px solid orangered;
+}
 
 .resultsContainerParent {
-    width: 80vw;
-    /* border: 2px dotted green; */
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+}
+
+.playerButtons p, .computerButtons p {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.playerButtons > #subText {
+    text-align: left;
+    margin-top: 3px;
+    font-size: 12px;
+    color: red;
+    font-weight: 400;
 }
 
 .resultsContainer{
     margin-top: 1rem;
-    width: 60vw;
+    border: 2px dotted black;
+    padding: 0.8rem;
 }
 
 .buttonsContainer{
     display: flex;
     flex-direction: column;
     /* border: 2px solid yellow; */
-    width:max-content;
+    /* width:max-content; */
 }
 
 
@@ -76,12 +109,6 @@ body {
     align-items: center;
 }
 
-
-.buttons {
-    margin-top:1rem;
-    display: flex;
-    gap: 3rem;
-}
 
 .resultsDivLeftPanel {
     border: red 2px solid;
@@ -108,4 +135,10 @@ body {
 .results > button {
     height: 22px;
     align-self: center;
+}
+
+.gameOver {
+    margin-top: 1rem;
+    font-weight: 700;
+    display: none;
 }

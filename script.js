@@ -22,7 +22,6 @@ function getChoice(num) {
     return computerChoice;
 }
 
-
 function getComputerChoice() {
     let rand = random(3)
     // return a object in later renditions {value:rock, index:0}
@@ -54,6 +53,7 @@ function getHumanChoice() {
     return null;
 }
 
+/*
 function playRound(humanChoice, computerChoice) {
     if (++roundCount > 1) {
         console.log('\n');
@@ -118,7 +118,7 @@ function playRound(humanChoice, computerChoice) {
             \tComputer score: ${computerScore}
             \tHuman score: ${humanScore}`
         )
-}
+ }
 
 let button = document.querySelector("button");
 button.addEventListener('click', playRPS);
@@ -156,17 +156,47 @@ function reset() {
     humanScore = 0
     computerScore = 0
     roundCount = 0
-}
+} */
+
 
 const buttons = document.querySelector('.playerButtons');
 const rpsButtons = document.querySelectorAll('.playerButtons > button');
 
 const resultsContainer = document.querySelector('.resultsContainer')
 const buttonsContainer = document.querySelector('.buttonsContainer')
+const startGameButton = document.querySelector('#startGame')
+
+const roundsInput = document.querySelector('#roundsInput');
+
+let TotalNumberOfRounds = 0;
 let isNextRound = false;
 
+startGameButton.addEventListener('click', () => {
+    const inputValue = +roundsInput.value;
 
+    if (!Number.isInteger(inputValue) || inputValue <= 0) {
+        alert('Please insert a number!')
+    } else {
+        TotalNumberOfRounds = inputValue
+        // console.log(TotalNumberOfRounds);
 
+        // create function for the code below
+        const allRpsButtons = document.querySelectorAll('.buttons button');
+        allRpsButtons.forEach(element => {
+            element.disabled = false;
+        });
+        // console.log(this);
+
+        startGameButton.disabled = true;
+    }
+});
+
+window.addEventListener('load', () => {
+    const allRpsButtons = document.querySelectorAll('.buttons button');
+    allRpsButtons.forEach(element => {
+        element.disabled = true;
+    });
+});
 
 // Get computed style for the source element
 // var computedStyle = window.getComputedStyle(buttonsContainer);
@@ -188,10 +218,8 @@ function disableRpsButtons(toggle) {
     });
 }
 
-
 buttons.addEventListener('click', (e) => {
     const target = e.target;
-    //console.log(target.innerText);
 
     let testEvent = new CustomEvent('rpsChosen', {
         detail: {
@@ -219,6 +247,7 @@ function createElements() {
 }
 
 resultsContainer.addEventListener('rpsChosen', (e) => {
+    console.log(e.target);
     let round = `ROUND: ${++roundCount}`;
     const element = createElements();
 
@@ -232,6 +261,7 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     const cancelGameButton = element.cancelGameButton;
     const playerPara = element.playerPara;
     const comupterPara = element.comupterPara;
+    let gameResult = '';
 
     resultsDivLeftPanel.setAttribute('class', 'resultsDivLeftPanel');
     resultsDivRightPanel.setAttribute('class', 'resultsDivRightPanel');
@@ -242,8 +272,12 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     nextRoundButton.textContent = 'Next Round';
     cancelGameButton.textContent = 'Cancel Game';
     roundPara.innerText = round;
+
     playerPara.innerText = `Player selected: ${e.detail.playerChoice}`;
     comupterPara.innerText = `Computer selected: ${e.detail.computerChoice}`;
+    gameResult = playRpsRoundUI(e.detail.playerChoice, e.detail.computerChoice);
+    console.log(gameResult);
+
 
     resultsDivLeftPanel.append(playerPara, comupterPara);
     resultsDivRightPanel.append(nextRoundButton, cancelGameButton);
@@ -257,6 +291,11 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
         let r = document.getElementById(`r_${roundCount - 1}`);
         r.removeChild(r.lastChild);
     }
+
+    let playerScore = document.getElementById('playerScore');
+    console.log(humanScore);
+    console.log(computerScore);
+    playerScore.innerText = `${humanScore}`;
 });
 
 function createEventListnerForRightPanelButtons(RightPanel) {
@@ -271,5 +310,46 @@ function createEventListnerForRightPanelButtons(RightPanel) {
             window.location.reload(true);
         }
     })
+}
+
+function playRpsRoundUI(humanChoice, computerChoice) {
+    let result = '';
+
+    switch (humanChoice.toLowerCase()) {
+        case 'rock':
+            if (computerChoice == 'scissors') {
+                result = "You win! Rock beats scissors";
+                ++humanScore;
+            } else if (computerChoice == 'paper') {
+                result = "You lose! Paper beats Rock";
+                ++computerScore;
+            } else {
+                result = "Its a draw!";
+            }
+            break;
+        case 'paper':
+            if (computerChoice == 'scissors') {
+                result = "You lose! Scissors beats paper";
+                ++computerScore;
+            } else if (computerChoice == 'rock') {
+                result = "You win! Paper beats rock";
+                ++humanScore;
+            } else {
+                result = "Its a draw!";
+            }
+            break
+        case 'scissors':
+            if (computerChoice == 'rock') {
+                result = "You lose! Rock beats scissors";
+                ++computerScore;
+            } else if (computerChoice == 'paper') {
+                result = "You win! Scissors beats paper";
+                ++humanScore;
+            } else {
+                result = "Its a draw!";
+            }
+            break
+    }
+    return result;
 }
 
