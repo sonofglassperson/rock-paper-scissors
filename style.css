@@ -66,6 +66,7 @@ body {
 
 .toggleButtonBorder {
     border: 3.5px solid orangered;
+    color: red;
 }
 
 .resultsContainerParent {
