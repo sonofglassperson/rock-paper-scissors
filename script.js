@@ -168,6 +168,9 @@ const buttonsContainer = document.querySelector('.buttonsContainer')
 const startGameButton = document.querySelector('#startGame')
 
 const roundsInput = document.querySelector('#roundsInput');
+const subText = document.getElementById('subText');
+const matchRound = document.getElementById('matchRound');
+const matchResult = document.getElementById('matchResult');
 
 let computerButton = null;
 let playerButton = null;
@@ -182,17 +185,14 @@ startGameButton.addEventListener('click', () => {
         alert('Please insert a number!')
     } else {
         TotalNumberOfRounds = inputValue
-        // console.log(TotalNumberOfRounds);
-
-        // create function for the code below
         disableRpsButtons(false)
-        // console.log(this);
-
+        subText.style.display = 'block';
         startGameButton.disabled = true;
     }
 });
 
 window.addEventListener('load', () => {
+    subText.style.display = 'none';
     disableRpsButtons(true)
 });
 
@@ -256,7 +256,8 @@ function toggleSelectedButtons(p, c) {
 }
 
 resultsContainer.addEventListener('rpsChosen', (e) => {
-    let round = `ROUND: ${++roundCount}`;
+    subText.style.display = 'none';
+    let round = `Round: ${++roundCount}`;
     const element = createElements();
     const playerChoice = e.detail.playerChoice;
     const computerChoice = e.detail.computerChoice;
@@ -282,11 +283,13 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     nextRoundButton.textContent = 'Next Round';
     cancelGameButton.textContent = 'Cancel Game';
     roundPara.innerText = round;
+    matchRound.innerText = round;
+    matchRound.setAttribute('style', 'font-weight:500');
 
     playerPara.innerText = `Player selected: ${playerChoice}`;
     comupterPara.innerText = `Computer selected: ${computerChoice}`;
     gameResult = playRpsRoundUI(playerChoice, computerChoice);
-    console.log(gameResult);
+    matchResult.innerText = gameResult;
 
 
     resultsDivLeftPanel.append(playerPara, comupterPara);
@@ -307,9 +310,8 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
 
     let playerScoreText = document.getElementById('playerScore');
     let computerScoreText = document.getElementById('computerScore');
-    // console.log(humanScore);
-    console.log(computerScore);
-    playerScoreText.innerText = `${humanScore}`;
+
+    playerScoreText.innerText = humanScore;
     computerScoreText.innerText = computerScore;
 });
 
@@ -320,8 +322,11 @@ function createEventListnerForRightPanelButtons(RightPanel) {
             isNextRound = true;
             disableRpsButtons(false);
             target.style.display = 'none';
+            subText.style.display = 'block';
             playerButton.classList.toggle('toggleButtonBorder');
             computerButton.classList.toggle('toggleButtonBorder');
+            matchRound.innerText = '';
+            matchResult.innerText = '';
         } else {
             //alert('ARE YOU SURE YOU WANT TO CANCEL?')
             window.location.reload(true);
