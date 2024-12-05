@@ -10,6 +10,9 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
+.gameOver {
+    border-radius: 1px red solid;
+}
 
 .playerButtons > button, .computerButtons > button{
     width: 100px;
@@ -28,7 +31,7 @@ body {
     padding: 0.8rem;
     gap: 3rem;
     border: 2px dotted red;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .title{
@@ -50,7 +53,6 @@ body {
 .scoreContainer {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     gap: 1.3rem;
     border: 2px solid orange;
     width: 10vw;
@@ -146,4 +148,10 @@ body {
     margin-top: 1rem;
     font-weight: 700;
     display: none;
+}
+
+#playAgain {
+    visibility:hidden;
+    width: 60%;
+    margin: 0 auto;
 }

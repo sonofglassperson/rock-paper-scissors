@@ -171,6 +171,8 @@ const roundsInput = document.querySelector('#roundsInput');
 const subText = document.getElementById('subText');
 const matchRound = document.getElementById('matchRound');
 const matchResult = document.getElementById('matchResult');
+const playAgainButton = document.getElementById('playAgain');
+let headerText = document.querySelector('.rounds > h2');
 
 let computerButton = null;
 let playerButton = null;
@@ -188,10 +190,15 @@ startGameButton.addEventListener('click', () => {
         disableRpsButtons(false)
         subText.style.display = 'block';
         startGameButton.disabled = true;
+        // headerText.style.visibility = true;
+        // headerText.setAttribute('style', " visibility: hidden;");
+        headerText.innerText = `Round ${roundCount + 1}`
+        console.log(headerText);
     }
 });
 
 window.addEventListener('load', () => {
+    roundsInput.focus()
     subText.style.display = 'none';
     disableRpsButtons(true)
 });
@@ -261,7 +268,6 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     const element = createElements();
     const playerChoice = e.detail.playerChoice;
     const computerChoice = e.detail.computerChoice;
-    //console.log(element.resultsDivLeftPanel);
     toggleSelectedButtons(playerChoice, computerChoice)
 
     const resultsDivLeftPanel = element.resultsDivLeftPanel;
@@ -283,28 +289,42 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     nextRoundButton.textContent = 'Next Round';
     cancelGameButton.textContent = 'Cancel Game';
     roundPara.innerText = round;
-    matchRound.innerText = round;
+    matchRound.innerText = roundCount == +roundsInput.value ? 'Final Round!' : round;
+    console.log(roundCount, +roundsInput.value);
+
     matchRound.setAttribute('style', 'font-weight:500');
 
     playerPara.innerText = `Player selected: ${playerChoice}`;
     comupterPara.innerText = `Computer selected: ${computerChoice}`;
     gameResult = playRpsRoundUI(playerChoice, computerChoice);
     matchResult.innerText = gameResult;
+    const isFinalRound = roundCount == +roundsInput.value;
 
+    if (isFinalRound) {
+        matchRound.innerText = 'Final Round!'
+        matchResult.innerText = gameResult.indexOf('draw') > 0 ? gameResult : gameResult.slice(gameResult.indexOf('!') + 2);
+        if (gameOverResult(humanScore, computerScore)) {
+            document.getElementById('gameOver').innerText = gameOverResult(humanScore, computerScore).result;
+            document.getElementById('gameOverResult').innerText = gameOverResult(humanScore, computerScore).overallResult;
+        }
+        playAgainButton.style.visibility = "visible";
+    }
 
     resultsDivLeftPanel.append(playerPara, comupterPara);
     resultsDivRightPanel.append(nextRoundButton, cancelGameButton);
-    resultsDiv.append(resultsDivLeftPanel, resultsDivRightPanel);
-    resultsContainer.append(roundPara, resultsDiv);
 
+    if (isFinalRound) {
+        resultsDiv.append(resultsDivLeftPanel);
+    } else {
+        resultsDiv.append(resultsDivLeftPanel, resultsDivRightPanel);
+    }
+
+    resultsContainer.append(roundPara, resultsDiv);
     disableRpsButtons(true);
     createEventListnerForRightPanelButtons(resultsDivRightPanel)
 
     if (roundCount > 1 && isNextRound) {
-        //alert(`r_${roundCount - 1}`);
-        console.log(`r_${roundCount - 1}`);
-
-        let r = document.getElementById(`r_${roundCount - 1}`);
+        const r = document.getElementById(`r_${roundCount - 1}`);
         r.removeChild(r.lastChild);
     }
 
@@ -327,6 +347,7 @@ function createEventListnerForRightPanelButtons(RightPanel) {
             computerButton.classList.toggle('toggleButtonBorder');
             matchRound.innerText = '';
             matchResult.innerText = '';
+            headerText.innerText = `Round ${roundCount + 1}`
         } else {
             //alert('ARE YOU SURE YOU WANT TO CANCEL?')
             window.location.reload(true);
@@ -340,38 +361,57 @@ function playRpsRoundUI(humanChoice, computerChoice) {
     switch (humanChoice.toLowerCase()) {
         case 'rock':
             if (computerChoice == 'scissors') {
-                result = "You win! Rock beats scissors";
+                result = "You win! Rock beats scissors.";
                 ++humanScore;
             } else if (computerChoice == 'paper') {
-                result = "You lose! Paper beats Rock";
+                result = "You lose! Paper beats Rock.";
                 ++computerScore;
             } else {
-                result = "Its a draw!";
+                result = "Its a draw.";
             }
             break;
         case 'paper':
             if (computerChoice == 'scissors') {
-                result = "You lose! Scissors beats paper";
+                result = "You lose! Scissors beats paper.";
                 ++computerScore;
             } else if (computerChoice == 'rock') {
-                result = "You win! Paper beats rock";
+                result = "You win! Paper beats rock.";
                 ++humanScore;
             } else {
-                result = "Its a draw!";
+                result = `It's a draw.`;
             }
             break
         case 'scissors':
             if (computerChoice == 'rock') {
-                result = "You lose! Rock beats scissors";
+                result = "You lose! Rock beats scissors.";
                 ++computerScore;
             } else if (computerChoice == 'paper') {
-                result = "You win! Scissors beats paper";
+                result = "You win! Scissors beats paper.";
                 ++humanScore;
             } else {
-                result = "Its a draw!";
+                result = "Its a draw.";
             }
             break
     }
     return result;
 }
 
+function gameOverResult(playerScore, computerScore) {
+    if (playerScore > computerScore) {
+        return {
+            'result': 'Player beat Computer',
+            'overallResult': 'You Win!'
+        }
+    } else if (playerScore < computerScore) {
+        return {
+            'result': 'Computer beat Player',
+            'overallResult': 'You Lose!'
+        }
+    }
+    return null;
+}
+
+
+playAgainButton.addEventListener('click', function () {
+    window.location.reload(true);
+})
