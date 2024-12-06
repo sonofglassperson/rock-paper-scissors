@@ -7,7 +7,7 @@ function random(max) {
 }
 
 function getChoice(num) {
-    let computerChoice = null
+    let computerChoice = '='
     switch (num) {
         case 1:
             computerChoice = 'rock'
@@ -225,11 +225,12 @@ function disableRpsButtons(toggle) {
 
 buttons.addEventListener('click', (e) => {
     const target = e.target;
+    const computerChoice = getComputerChoice();
 
     let testEvent = new CustomEvent('rpsChosen', {
         detail: {
             'playerChoice': target.innerText,
-            'computerChoice': getComputerChoice()
+            'computerChoice': computerChoice.slice(0, 1).toUpperCase() + computerChoice.slice(1)
         }
     })
 
@@ -284,7 +285,7 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     resultsDivRightPanel.setAttribute('class', 'resultsDivRightPanel');
     resultsDiv.setAttribute('id', `r_${roundCount}`);
     resultsDiv.setAttribute('class', 'results');
-    roundPara.setAttribute('style', 'display:block;')
+    roundPara.setAttribute('style', 'display:block;');
 
     nextRoundButton.textContent = 'Next Round';
     cancelGameButton.textContent = 'Cancel Game';
@@ -299,14 +300,14 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     gameResult = playRpsRoundUI(playerChoice, computerChoice);
     matchResult.innerText = gameResult;
     const isFinalRound = roundCount == +roundsInput.value;
+    const gameOverResultText = document.getElementById('gameOverResult');
 
     if (isFinalRound) {
-        matchRound.innerText = 'Final Round!'
+        matchRound.innerText = 'Final Round!';
         matchResult.innerText = gameResult.indexOf('draw') > 0 ? gameResult : gameResult.slice(gameResult.indexOf('!') + 2);
-        if (gameOverResult(humanScore, computerScore)) {
-            document.getElementById('gameOver').innerText = gameOverResult(humanScore, computerScore).result;
-            document.getElementById('gameOverResult').innerText = gameOverResult(humanScore, computerScore).overallResult;
-        }
+        document.getElementById('gameOver').innerText = gameOverResult(humanScore, computerScore).result;
+        gameOverResultText.innerText = gameOverResult(humanScore, computerScore).overallResult;
+        gameOverResultText.setAttribute('style', 'font-weight:500');
         playAgainButton.style.visibility = "visible";
     }
 
@@ -357,6 +358,7 @@ function createEventListnerForRightPanelButtons(RightPanel) {
 
 function playRpsRoundUI(humanChoice, computerChoice) {
     let result = '';
+    computerChoice = computerChoice.toLowerCase();
 
     switch (humanChoice.toLowerCase()) {
         case 'rock':
@@ -408,7 +410,10 @@ function gameOverResult(playerScore, computerScore) {
             'overallResult': 'You Lose!'
         }
     }
-    return null;
+    return {
+        'result': 'No winner declared',
+        'overallResult': `It's a tie!`
+    }
 }
 
 
