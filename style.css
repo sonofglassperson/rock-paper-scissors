@@ -30,35 +30,41 @@ body {
     display: flex;
     padding: 0.8rem;
     gap: 3rem;
-    border: 2px dotted red;
     /* flex-wrap: wrap; */
 }
 
 .title{
-    border: 2px solid orange;
-    word-break:break-all;
-    font-size: 2rem;
-    font-weight: 400;
+    /* border: 2px solid red; */
+    color: red;
+    /* word-break:break-all; */
+    font-size: 2.1rem;
+    /* font-weight: 200; */
     width: 10vw;
     max-width: 200px;
     min-width: 100px;
-    line-height: 3rem;
+    line-height: 4rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .gameAndScore {
-    border: 2px solid blue;
-    /* display: flex; */
+    padding: 0.6rem;
 }
 
 .scoreContainer {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
-    border: 2px solid orange;
+    border: 2px solid blue;
+    box-shadow: 5px 5px #666;
+    border-radius: 10px;
     width: 10vw;
     max-width: 200px;
     min-width: 100px;
-    min-width: 100px;flex-grow: 0;
+    min-width: 100px;
+    padding: 2px;
+    max-height: 350px;
+    min-height: 350px;
 }
 
 .container {
@@ -66,12 +72,12 @@ body {
     justify-content: center;
     width: 80vw;
     /* width: 80%; */
-    border: 2px dotted black;
+    /* border: 2px dotted black; */
     margin: 0 auto;
 }
 
 .toggleButtonBorder {
-    border: 3.5px solid orangered;
+    border: 3.5px solid green;
     color: red;
 }
 
@@ -96,7 +102,6 @@ body {
 
 .resultsContainer{
     margin-top: 1rem;
-    border: 2px dotted black;
     padding: 0.8rem;
 }
 
@@ -118,7 +123,8 @@ body {
 
 
 .resultsDivLeftPanel {
-    border: red 2px solid;
+    border: green 2px solid;
+    /* color: green; */
     border-radius: 20px;
     padding: 0.8rem;
     flex: 2;

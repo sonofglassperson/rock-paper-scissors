@@ -303,6 +303,7 @@ resultsContainer.addEventListener('rpsChosen', (e) => {
     const gameOverResultText = document.getElementById('gameOverResult');
 
     if (isFinalRound) {
+        headerText.innerText = 'Game Over!';
         matchRound.innerText = 'Final Round!';
         matchResult.innerText = gameResult.indexOf('draw') > 0 ? gameResult : gameResult.slice(gameResult.indexOf('!') + 2);
         document.getElementById('gameOver').innerText = gameOverResult(humanScore, computerScore).result;
